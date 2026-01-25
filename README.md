@@ -1,160 +1,97 @@
-📊 GitHub Time-Series Forecasting
+# GitHub Time-Series Forecasting
 
-A full-stack project that retrieves GitHub repository activity metrics and forecasts trends using time-series models.
-It combines data retrieval, forecasting, and interactive visualization into a Docker-ready, microservices-based architecture.
+A full-stack application that collects GitHub repository activity metrics and generates time-series forecasts to predict future trends. The project combines data ingestion, indexing, forecasting, and interactive visualization in a Docker-ready microservices architecture.
 
-🚀 Project Summary
+---
+
+## What this project does
 
 This application:
 
-✅ Fetches GitHub repo metrics (stars, forks, issues, contributors) via the GitHub API
-✅ Stores and indexes data using Elasticsearch
-✅ Provides time-series forecasting using:
+- Fetches GitHub repository activity metrics (stars, forks, issues, contributors) using the GitHub REST API
+- Stores and indexes the data in Elasticsearch for fast retrieval and search
+- Forecasts future repository trends using multiple time-series approaches:
+  - Prophet
+  - StatsModels (ARIMA/SARIMA-style statistical forecasting)
+  - TensorFlow / Keras (LSTM-based forecasting)
+- Visualizes historical trends and predictions through an interactive React dashboard
+- Supports semantic-style search on indexed repository content
+- Runs locally using Docker Compose and can be deployed to cloud platforms (Google Cloud)
 
-TensorFlow/Keras (LSTM/Neural models)
+Live demo (may require valid GitHub tokens):
+https://react2-409252817409.us-central1.run.app/
 
-Prophet
+---
 
-StatsModels
-✅ Features interactive visualizations and semantic search
-✅ Deploys as Dockerized microservices on Google Cloud
-👉 Live demo (may require valid tokens): https://react2-409252817409.us-central1.run.app/
+## Architecture overview
 
-🧠 Key Features
-📌 Data Ingestion
+The system is organized into independent services:
 
-Pulls GitHub activity using authenticated API requests
+- Frontend: React dashboard for metrics, charts, and results
+- Backend API: Flask service for ingestion, retrieval, and forecasting triggers
+- Search / Storage: Elasticsearch for indexing and queries
+- Forecasting modules: multiple model implementations for comparisons and experimentation
 
-Supports multiple repos
+This design keeps each component isolated and makes it easier to test, scale, and deploy.
 
-Stores data in Elasticsearch for indexing and fast search
+---
 
-📈 Time-Series Forecasting
+## Key features
 
-Predicts future activity using multiple forecasting methods:
+### Data ingestion
+- Pulls GitHub activity using authenticated API requests
+- Supports multiple repositories
+- Indexes data for fast access and future analysis
 
-Neural networks (TensorFlow)
+### Forecasting
+- Generates future trends using multiple models
+- Allows comparing traditional time-series methods with deep learning
+- Supports forecasting by metric (stars, issues, etc.)
 
-Prophet (seasonal + trend decomposition)
+### Visualization
+- Interactive charts and tables for historical + predicted values
+- Simple dashboard experience for exploring repository trends
 
-StatsModels (traditional statistical models)
+### Deployment
+- Docker Compose setup for local development
+- Cloud-ready design (Google Cloud Run compatible)
 
-📊 Visualization & UI
+---
 
-Interactive charts and tables
+## Tech stack
 
-Semantic search to query similar issues across repos
+Frontend:
+- React
+- JavaScript
 
-Frontend dashboard built with React
+Backend:
+- Python
+- Flask
 
-🐳 Deployment
+Forecasting:
+- Prophet
+- StatsModels
+- TensorFlow / Keras
 
-Docker Compose setup for backend, frontend, and services
+Search and storage:
+- Elasticsearch
 
-Suitable for cloud deployment (e.g., Google Cloud Run)
+Deployment:
+- Docker
+- Google Cloud
 
-🛠 Tech Stack
-Layer	Technology
-Frontend	React, JavaScript
-Backend	Flask (Python)
-Forecasting	TensorFlow/Keras, Prophet, StatsModels
-Data Store & Search	Elasticsearch
-Deployment	Docker, Google Cloud
-API	GitHub REST API
-📁 Repository Structure
+---
 
+## Repository setup
 
-🧪 Installation & Setup
-🔹 Clone the Repo
+### Prerequisites
+Make sure you have:
+
+- Docker and Docker Compose
+- Python 3.8+
+- Node.js + npm (or yarn)
+
+### Clone the repository
+```bash
 git clone https://github.com/Kumbhkaran27/GitHub-Time-Series-Forecasting.git
 cd GitHub-Time-Series-Forecasting
-
-🔹 Prerequisites
-
-Install:
-
-✔ Docker & Docker Compose
-✔ Python 3.8+
-✔ Node.js & npm/yarn
-
-🔹 Environment Variables
-
-Create a .env file:
-
-GITHUB_TOKEN=<your_github_token>
-ELASTIC_HOST=<elasticsearch_host>
-ELASTIC_PORT=<elasticsearch_port>
-FLASK_ENV=development
-
-
-GitHub tokens are required because unauthenticated requests are rate-limited.
-
-🐳 Run via Docker Compose
-docker compose up --build
-
-
-This brings up:
-
-📌 Frontend (React)
-📌 Backend (Flask)
-📌 Elasticsearch
-📌 Forecast workers
-
-Navigate browser to:
-
-http://localhost:3000
-
-🚀 How to Use
-🔹 Step 1 — Fetch Repo Data
-
-Use the UI or API endpoint to fetch metrics for one or more GitHub repos.
-
-Example endpoint:
-
-POST /api/repos
-{
-  "full_name": "owner/repo"
-}
-
-🔹 Step 2 — Forecast Metrics
-
-Choose forecasting method:
-
-Prophet
-
-StatsModels
-
-LSTM
-
-Select a metric (e.g., stars or issues) and run predictions.
-
-🔹 Step 3 — View Interactive Charts
-
-Dashboards will show:
-
-📈 historical data
-🔮 future forecasts
-🔍 semantic search results
-
-⚙️ Forecast Models Included
-Model	Type	Strength
-Prophet	Additive/Multiplicative	Handles seasonality
-StatsModels	ARIMA/SARIMA	Statistical forecasting
-TensorFlow	LSTM/Deep model	Captures nonlinear trends
-🧠 Design Decisions
-
-🎯 Why Elasticsearch?
-For efficient search + near-real-time indexing of GitHub content.
-
-🎯 Why multiple forecasting models?
-Allows comparison of traditional vs. ML-based predictions.
-
-🎯 Why microservices?
-Scalability & easier deployment to cloud platforms.
-
-🛣 Future Enhancements
-
-✨ Add authentication + user dashboard
-✨ Historical data caching
-✨ Alerting (e.g., repository anomaly alerts)
-✨ Export forecasts as CSV/Excel
